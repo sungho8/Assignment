@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         model = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        model.imageSearch("사과")
+        model.imageSearch("수박")
+        model.vclipSearch("수박")
     }
 }

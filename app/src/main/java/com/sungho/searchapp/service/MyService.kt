@@ -26,9 +26,9 @@ object MyService {
 
     class AppInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
-            val REST_API_KEY = "bdc7518f89e90b20121c75fe75a12e08"
+            val REST_API_KEY = "7639bbb9b6c722c27d81bdd8f915d78e"
             val newRequest = request().newBuilder()
-                //.addHeader("Authorization", "KakaoAK ${REST_API_KEY}")
+                .addHeader("Authorization", "KakaoAK ${REST_API_KEY}")
                 .build()
             proceed(newRequest)
         }
