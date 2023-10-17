@@ -2,8 +2,8 @@ package com.sungho.searchapp.model
 
 import com.google.gson.annotations.SerializedName
 
-
 data class KakaoVclip(
+    val title : String,
     val thumbnail : String,
     val datetime : String
 )

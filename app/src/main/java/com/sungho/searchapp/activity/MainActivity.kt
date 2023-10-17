@@ -1,5 +1,6 @@
 package com.sungho.searchapp.activity
 
+import SearchAdapter
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.sungho.searchapp.R
 import com.sungho.searchapp.databinding.ActivityMainBinding
@@ -23,7 +25,17 @@ class MainActivity : AppCompatActivity() {
 
         model = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        model.imageSearch("수박")
+        model.imageSearch("하스스톤")
         model.vclipSearch("수박")
+
+        setObserver()
+    }
+
+    private fun setObserver(){
+        model.searchItemEvent.observe(this, Observer{
+            val adapter = SearchAdapter()
+            adapter.data = model.searchItemList.value ?: listOf()
+            binding.imageRecyclerView.adapter = adapter
+        })
     }
 }

@@ -3,21 +3,9 @@ package com.sungho.searchapp.model
 import com.google.gson.annotations.SerializedName
 
 data class KakaoImage(
-    @SerializedName("display_sitename")
-    val sitename : String,
-    val collection : String,
-    val image_url : String
-)
-
-data class MetaData(
-    @SerializedName("total_count")
-    val totalCount: Int?,
-
-    @SerializedName("pageable_count")
-    val pageableCount: Int?,
-
-    @SerializedName("is_end")
-    val isEnd: Boolean?
+    val display_sitename : String,
+    val thumbnail_url : String,
+    val datetime : String,
 )
 
 data class ImageSearchResponse(
