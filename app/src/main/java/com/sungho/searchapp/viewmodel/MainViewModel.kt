@@ -29,6 +29,8 @@ class MainViewModel : ViewModel(){
         CoroutineScope(Dispatchers.Main).launch {
             val response = MyService.getMyService().getImageSearch(query = keyword)
 
+            searchItemList.value?.clear()
+
             for(image in response.body()?.documents ?: listOf()){
                 val searchItem = SearchItem(
                     title = image.display_sitename,
