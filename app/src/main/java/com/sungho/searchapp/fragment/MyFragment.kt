@@ -1,4 +1,4 @@
-package com.sungho.searchapp.search
+package com.sungho.searchapp.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

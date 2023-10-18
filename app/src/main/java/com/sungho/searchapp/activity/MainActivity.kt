@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.sungho.searchapp.R
 import com.sungho.searchapp.databinding.ActivityMainBinding
-import com.sungho.searchapp.search.MyFragment
-import com.sungho.searchapp.search.SearchFragment
+import com.sungho.searchapp.fragment.MyFragment
+import com.sungho.searchapp.fragment.SearchFragment
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy{ ActivityMainBinding.inflate(layoutInflater) }

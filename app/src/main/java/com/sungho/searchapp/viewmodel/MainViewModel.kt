@@ -3,6 +3,7 @@ package com.sungho.searchapp.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sungho.searchapp.model.KakaoImage
 import com.sungho.searchapp.model.SearchItem
 import com.sungho.searchapp.service.MyService
 import com.sungho.searchapp.util.Event
@@ -18,12 +19,17 @@ class MainViewModel : ViewModel(){
         searchItemList.value = ArrayList<SearchItem>()
     }
 
-    fun imageSearch(keyword : String){
-        CoroutineScope(Dispatchers.Main).launch {
-            searchItemList.value?.clear()
-            val imageRes = MyService.getMyService().getImageSearch(query = keyword)
-            val vclipRes = MyService.getMyService().getVclipSearch(query = keyword)
+    fun search(keyword : String, page : Int = 1){
+        searchItemList.value?.clear()
+        load(keyword,page)
+    }
 
+    fun load(keyword : String, page : Int = 1){
+        CoroutineScope(Dispatchers.Main).launch {
+            val imageRes = MyService.getMyService().getImageSearch(query = keyword,page = page)
+            val vclipRes = MyService.getMyService().getVclipSearch(query = keyword,page = page)
+
+            searchItemList.value?.clear()
             for(image in imageRes.body()?.documents ?: listOf()){
                 val searchItem = SearchItem(
                     title = image.display_sitename,
