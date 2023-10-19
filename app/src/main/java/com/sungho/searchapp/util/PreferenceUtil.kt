@@ -46,6 +46,17 @@ class PreferenceUtil (context: Context){
     }
 
     fun removeLikeImg(imageView: ImageView, item : SearchItem){
+        // set 불러오기
+        val likeJson = getString("likeSet","")
+        val likeSet = if(likeJson == "") LikeSet()
+        else gson.fromJson(likeJson,LikeSet::class.java)    // prefs에서 불러온 Set
+
+        // 해당 데이터 제거
+        item.like = false
+        likeSet.mutableSet.remove(item)
+
+        // set 저장
+        setString("likeSet",gson.toJson(likeSet))
 
         setLikeBtn(imageView,false)
     }

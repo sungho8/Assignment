@@ -33,6 +33,11 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.SearchViewHolder>(){
         data.addAll(item)
     }
 
+    fun removeItem(position : Int){
+        data.removeAt(position)
+        notifyDataSetChanged()
+    }
+
     inner class SearchViewHolder (val binding : ItemSearchBinding) : RecyclerView.ViewHolder(binding.root){
         fun onBind(data : SearchItem){
             binding.item = data
@@ -45,6 +50,7 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.SearchViewHolder>(){
 
             GlobalApplication.prefs.setLikeBtn(binding.likeBtn,true)
             binding.likeBtn.setOnClickListener {
+                removeItem(position)
                 GlobalApplication.prefs.removeLikeImg(binding.likeBtn,data)
             }
         }
