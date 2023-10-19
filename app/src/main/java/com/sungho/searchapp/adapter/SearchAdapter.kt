@@ -7,6 +7,7 @@ import com.sungho.searchapp.databinding.ItemLoadingBinding
 import com.sungho.searchapp.databinding.ItemSearchBinding
 import com.sungho.searchapp.databinding.ItemSeparatorBinding
 import com.sungho.searchapp.model.SearchItem
+import com.sungho.searchapp.util.GlobalApplication
 import com.sungho.searchapp.util.Layout
 import java.lang.ClassCastException
 
@@ -39,7 +40,6 @@ class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 throw ClassCastException("Unknown viewType $viewType")
             }
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -61,10 +61,9 @@ class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun getItemCount(): Int = data.size
     override fun getItemId(position: Int): Long =position.toLong()
 
-
-    fun setList(notice: ArrayList<SearchItem>,page : Int) {
+    fun setList(items: ArrayList<SearchItem>, page : Int) {
         data.add(SearchItem(type = SEPARATOR,title = "page $page"))
-        data.addAll(notice)
+        data.addAll(items)
         data.add(SearchItem(type = LOADING_BAR)) // progress bar
     }
     fun deleteLoading(){
@@ -74,13 +73,23 @@ class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     inner class SearchViewHolder (val binding : ItemSearchBinding) : RecyclerView.ViewHolder(binding.root){
         fun onBind(data : SearchItem){
             binding.item = data
-            binding.title.text = "${position} ${binding.title.text}"
-            //테두리 둥글게
-            Layout.roundCorner(binding.imageView,20)
 
+            // 이미지
+            Layout.roundCorner(binding.imageView,20)
             Glide.with(binding.view.context)
                 .load(data.thumbnail)
                 .into(binding.imageView)
+
+            // 이미지 저장
+            GlobalApplication.prefs.setLikeBtn(binding.likeBtn,data.like)
+            binding.likeBtn.setOnClickListener {
+                if(data.like)
+                    GlobalApplication.prefs.removeLikeImg(binding.likeBtn,data)
+                else
+                    GlobalApplication.prefs.addLikeImg(binding.likeBtn,data)
+
+                data.like = !data.like
+            }
         }
     }
 
