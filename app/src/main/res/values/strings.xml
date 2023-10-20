@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">SearchApp</string>
+    <string name="app_name">이미지 검색</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="string_search_hint">검색어를 입력해주세요.</string>
+    <string name="string_myimg">저장한 이미지</string>
 </resources>

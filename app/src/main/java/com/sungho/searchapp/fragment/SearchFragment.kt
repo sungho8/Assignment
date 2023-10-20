@@ -99,10 +99,10 @@ class SearchFragment : Fragment() {
                 adapter.setList(model.searchItemList.value ?: arrayListOf(),page,model.isImgEnd,model.isVclipEnd)
                 binding.itemRecyclerView.adapter = adapter
             }else if(it.peekContent() == "load"){
+                totalCnt += page * (size + 1)
                 adapter.setList(model.searchItemList.value ?: arrayListOf(),page,model.isImgEnd,model.isVclipEnd)
                 adapter.notifyItemRangeInserted(totalCnt, size + 1)
                 isLoading = false
-                totalCnt += page * (size + 1)
             }else{
                 Toast.makeText(requireContext(),"검색을 실패했습니다.",Toast.LENGTH_SHORT).show()
             }

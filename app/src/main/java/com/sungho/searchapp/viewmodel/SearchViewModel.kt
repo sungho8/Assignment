@@ -22,17 +22,17 @@ class SearchViewModel : ViewModel(){
         searchItemList.value = ArrayList<SearchItem>()
     }
 
-    fun search(keyword : String, page : Int = 1){
+    fun search(query : String, page : Int = 1){
         isImgEnd = false
         isVclipEnd = false
         searchItemList.value?.clear()
-        load(keyword,page,true)
+        load(query,page,true)
     }
 
-    fun load(keyword : String, page : Int = 1,isNew : Boolean = false){
+    fun load(query : String, page : Int = 1, isNew : Boolean = false){
         CoroutineScope(Dispatchers.Main).launch {
-            val imageRes = MyService.getMyService().getImageSearch(query = keyword, page = page)
-            val vclipRes = MyService.getMyService().getVclipSearch(query = keyword, page = page)
+            val imageRes = MyService.getMyService().getImageSearch(query = query, page = page)
+            val vclipRes = MyService.getMyService().getVclipSearch(query = query, page = page)
 
             try{
                 searchItemList.value?.clear()
@@ -64,9 +64,6 @@ class SearchViewModel : ViewModel(){
                     }
                 }
 
-                Log.d("Search Result Image","$page ${imageRes} ${imageRes.body()}")
-                Log.d("Search Result Vclip","$page ${vclipRes} ${vclipRes.body()}")
-                Log.d("Total Result","$page ${searchItemList.value?.size} ${isImgEnd} ${isVclipEnd}")
                 searchItemList.value?.sortByDescending { it.dateTime }
                 searchItemEvent.value = Event(if (isNew) "new" else "load")
             }catch (e : Exception){
