@@ -19,10 +19,16 @@ class PreferenceUtil (context: Context){
         return prefs.getString(key, defValue).toString()
     }
 
+    fun getLikeSet() : LikeSet{
+        // set 불러오기
+        val likeJson = getString("likeSet","")
+        return if(likeJson == "") LikeSet()
+        else gson.fromJson(likeJson,LikeSet::class.java)
+    }
+
     fun setString(key: String, str: String) {
         prefs.edit().putString(key, str).apply()
     }
-
 
     fun setLikeBtn(imageView: ImageView, like : Boolean){
         val res = if(like) R.drawable.ic_like else R.drawable.ic_unlike
@@ -30,10 +36,7 @@ class PreferenceUtil (context: Context){
     }
 
     fun addLikeImg(imageView: ImageView, item : SearchItem){
-        // set 불러오기
-        val likeJson = getString("likeSet","")
-        val likeSet = if(likeJson == "") LikeSet()
-            else gson.fromJson(likeJson,LikeSet::class.java)    // prefs에서 불러온 Set
+        val likeSet = getLikeSet()
 
         // 새로운 데이터 저장
         likeSet.mutableSet.add(item)
@@ -46,10 +49,7 @@ class PreferenceUtil (context: Context){
     }
 
     fun removeLikeImg(imageView: ImageView, item : SearchItem){
-        // set 불러오기
-        val likeJson = getString("likeSet","")
-        val likeSet = if(likeJson == "") LikeSet()
-        else gson.fromJson(likeJson,LikeSet::class.java)    // prefs에서 불러온 Set
+        val likeSet = getLikeSet()
 
         // 해당 데이터 제거
         item.like = false
@@ -62,11 +62,7 @@ class PreferenceUtil (context: Context){
     }
 
     fun likeCheckImg(item: SearchItem) : Boolean{
-        // set 불러오기
-        val likeJson = getString("likeSet","")
-        val likeSet = if(likeJson == "") LikeSet()
-        else gson.fromJson(likeJson,LikeSet::class.java)    // prefs에서 불러온 Set
-
+        val likeSet = getLikeSet()
         return likeSet.mutableSet.contains(item)
     }
 }

@@ -35,14 +35,13 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.SearchViewHolder>(){
 
     fun removeItem(position : Int){
         data.removeAt(position)
-        notifyDataSetChanged()
+        notifyItemRemoved(position)
     }
 
     inner class SearchViewHolder (val binding : ItemSearchBinding) : RecyclerView.ViewHolder(binding.root){
         fun onBind(data : SearchItem){
             binding.item = data
 
-            // 이미지
             Layout.roundCorner(binding.imageView,20)
             Glide.with(binding.view.context)
                 .load(data.thumbnail)
@@ -50,7 +49,7 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.SearchViewHolder>(){
 
             GlobalApplication.prefs.setLikeBtn(binding.likeBtn,true)
             binding.likeBtn.setOnClickListener {
-                removeItem(position)
+                removeItem(adapterPosition)
                 GlobalApplication.prefs.removeLikeImg(binding.likeBtn,data)
             }
         }

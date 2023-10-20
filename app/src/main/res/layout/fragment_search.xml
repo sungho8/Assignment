@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.sungho.searchapp.viewmodel.MainViewModel" />
+            type="com.sungho.searchapp.viewmodel.SearchViewModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +16,8 @@
             android:id="@+id/searchEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/teal_700"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/searchButton"/>
@@ -34,7 +36,7 @@
             android:id="@+id/itemRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/searchEditText"/>

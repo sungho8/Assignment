@@ -61,13 +61,15 @@ class SearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun getItemCount(): Int = data.size
     override fun getItemId(position: Int): Long =position.toLong()
 
-    fun setList(items: ArrayList<SearchItem>, page : Int) {
+    fun setList(items: ArrayList<SearchItem>, page : Int,isImgEnd : Boolean, isVclipEnd : Boolean) {
         data.add(SearchItem(type = SEPARATOR,title = "page $page"))
         data.addAll(items)
-        data.add(SearchItem(type = LOADING_BAR)) // progress bar
+        if(!(isImgEnd && isVclipEnd))
+            data.add(SearchItem(type = LOADING_BAR)) // progress bar
     }
     fun deleteLoading(){
-        data.removeAt(data.lastIndex)
+        if(data[data.lastIndex].type == LOADING_BAR)
+            data.removeAt(data.lastIndex)
     }
 
     inner class SearchViewHolder (val binding : ItemSearchBinding) : RecyclerView.ViewHolder(binding.root){
